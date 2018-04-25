@@ -49,8 +49,8 @@ class ScrpyerTPB():
         'magnet:?xt=urn:btih:17e3c9fee45ad6e0a2a4cd4bd4e3ff4cbc380e27&dn=DivineBitches--DiB-43103+Delirious+Hunter+and+DJ+Hi+HD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80'
         dom = bs4.BeautifulSoup(content, "html.parser")
         sites = []
-        for tr in dom.select('#searchResult > tbody > tr'):
-            print(tr)
+        for tr in dom.select('.vertTh'):
+            print(tr.parent())
 
         return sites
 

@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>The Pirate Bay - The galaxy's most resilient bittorrent site</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="google-site-verification" content="EAxwGepBMuSp3dgew3R-K5ooX4dQvUEKioRqxkPxjBg" />
+    <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="Search The Pirate Bay" />
+    <link rel="stylesheet" type="text/css" href="https://thepiratebay.rocks/static/css/pirate6.css"/>
+    <link rel="dns-prefetch" href="//syndication.exoclick.com/">
+    <link rel="dns-prefetch" href="//main.exoclick.com/">
+    <link rel="dns-prefetch" href="//static-ssl.exoclick.com/">
+    <link rel="dns-prefetch" href="//ads.exoclick.com/">
+    <link rel="canonical" href="https://thepiratebay.rocks/recent" />
+    <style type="text/css">
+        .searchBox{
+            margin: 6px;
+            width: 300px;
+            vertical-align: middle;
+            padding: 2px;
+            background-image:url('https://thepiratebay.rocks/static/img/icon-https.gif');
+            background-repeat:no-repeat;
+            background-position: right;
+        }
+        .detLink {
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+        .detDesc {
+            color: #4e5456;
+        }
+        .detDesc a:hover {
+            color: #000099;
+            text-decoration: underline;
+        }
+        .sortby {
+            text-align: left;
+            float: left;
+        }
+        .detName {
+            padding-top: 3px;
+            padding-bottom: 2px;
+        }
+        .viewswitch {
+            font-style: normal;
+            float: right;
+            text-align: right;
+            font-weight: normal;
+        }
+    </style>
+    <script src="https://thepiratebay.rocks/static/js/jquery.min.js" type="text/javascript"></script>
+    <script src="https://thepiratebay.rocks/static/js/tpb.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">if (top.location != self.location) {top.location.replace(self.location);}</script>
+</head>
+
+<body><script type='text/javascript' src='//pl14300350.pvclouds.com/ce/70/56/ce705660e932256345bb421498e19834.js'></script>
+    <div id="header">
+
+        <form method="get" id="q" action="/s/">
+            <a href="/" class="img"><img src="https://thepiratebay.rocks/static/img/tpblogo_sm_ny.gif" id="TPBlogo" alt="The Pirate Bay" /></a>
+            <b><a href="/" title="Search Torrents">Search Torrents</a></b>&nbsp;&nbsp;|&nbsp;
+ <a href="/browse" title="Browse Torrents">Browse Torrents</a>&nbsp;&nbsp;|&nbsp;
+&nbspRecent Torrents&nbsp;&nbsp;|&nbsp;
+ <a href="/tv/" title="TV shows">TV shows</a>&nbsp;&nbsp;|&nbsp;
+ <a href="/music" title="Music">Music</a>&nbsp;&nbsp;|&nbsp;
+ <a href="/top" title="Top 100">Top 100</a>
+            <br /><input type="search" class="inputbox" title="Pirate Search" name="q" placeholder="Search here..." value="" /><input value="Pirate Search" type="submit" class="submitbutton"  /><br />            <label for="audio" title="Audio"><input id="audio" name="audio" onclick="javascript:rmAll();" type="checkbox"/>Audio</label>
+            <label for="video" title="Video"><input id="video" name="video" onclick="javascript:rmAll();" type="checkbox"/>Video</label>
+            <label for="apps" title="Applications"><input id="apps" name="apps" onclick="javascript:rmAll();" type="checkbox"/>Applications</label>
+            <label for="games" title="Games"><input id="games" name="games" onclick="javascript:rmAll();" type="checkbox"/>Games</label>
+            <label for="porn" title="Porn"><input id="porn" name="porn" onclick="javascript:rmAll();" type="checkbox"/>Porn</label>
+            <label for="other" title="Other"><input id="other" name="other" onclick="javascript:rmAll();" type="checkbox"/>Other</label>
+
+            <select id="category" name="category" onchange="javascript:setAll();">
+                <option value="0">All</option>
+                <optgroup label="Audio">
+                    <option value="101">Music</option>
+                    <option value="102">Audio books</option>
+                    <option value="103">Sound clips</option>
+                    <option value="104">FLAC</option>
+                    <option value="199">Other</option>
+                </optgroup>
+                <optgroup label="Video">
+                    <option value="201">Movies</option>
+                    <option value="202">Movies DVDR</option>
+                    <option value="203">Music videos</option>
+                    <option value="204">Movie clips</option>
+                    <option value="205">TV shows</option>
+                    <option value="206">Handheld</option>
+                    <option value="207">HD - Movies</option>
+                    <option value="208">HD - TV shows</option>
+                    <option value="209">3D</option>
+                    <option value="299">Other</option>
+                </optgroup>
+                <optgroup label="Applications">
+                    <option value="301">Windows</option>
+                    <option value="302">Mac</option>
+                    <option value="303">UNIX</option>
+                    <option value="304">Handheld</option>
+                    <option value="305">IOS (iPad/iPhone)</option>
+                    <option value="306">Android</option>
+                    <option value="399">Other OS</option>
+                </optgroup>
+                <optgroup label="Games">
+                    <option value="401">PC</option>
+                    <option value="402">Mac</option>
+                    <option value="403">PSx</option>
+                    <option value="404">XBOX360</option>
+                    <option value="405">Wii</option>
+                    <option value="406">Handheld</option>
+                    <option value="407">IOS (iPad/iPhone)</option>
+                    <option value="408">Android</option>
+                    <option value="499">Other</option>
+                </optgroup>
+                <optgroup label="Porn">
+                    <option value="501">Movies</option>
+                    <option value="502">Movies DVDR</option>
+                    <option value="503">Pictures</option>
+                    <option value="504">Games</option>
+                    <option value="505">HD - Movies</option>
+                    <option value="506">Movie clips</option>
+                    <option value="599">Other</option>
+                </optgroup>
+                <optgroup label="Other">
+                    <option value="601">E-books</option>
+                    <option value="602">Comics</option>
+                    <option value="603">Pictures</option>
+                    <option value="604">Covers</option>
+                    <option value="605">Physibles</option>
+                    <option value="699">Other</option>
+                </optgroup>
+            </select>
+
+            <input type="hidden" name="page" value="0" />
+            <input type="hidden" name="orderby" value="99" />
+        </form>
+    </div><!-- // div:header -->
+    <h2><span>Recent Torrents</span>&nbsp;</h2>
+
+<div id="content">
+			<div id="sky-right">
+				 <iframe src="https://thepiratebay.rocks/static/ads/exo_na/sky2.html" width="160" height="600" frameborder="0" scrolling="no"></iframe>
+			</div>
+		
+	<div id="main-content">
+			 <iframe src="https://thepiratebay.rocks/static/ads/exo_na/center.html" id="sky-center" width="728" height="90" frameborder="0" scrolling="no"></iframe>
+
+<table id="searchResult">
+	<thead id="tableHead">
+	
+		<tr class="header">
+			<th>Type</th>
+			<th><div class="sortby">Name</div><div class="viewswitch"> View: <a href="https://thepiratebay.rocks/switchview.php?view=s">Single</a> / Double&nbsp;</div></th>
+			<th><abbr title="Seeders">SE</abbr></th>
+			<th><abbr title="Leechers">LE</abbr></th>
+		</tr>
+ 		
+	</thead>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266648/Last.Outpost.S01E02.1080p.HEVC.x265-MeGusta" class="detLink" title="Details for Last.Outpost.S01E02.1080p.HEVC.x265-MeGusta">Last.Outpost.S01E02.1080p.HEVC.x265-MeGusta</a>
+</div>
+<a href="magnet:?xt=urn:btih:5d909943f31c9327f66f7fa54d3f2213046f07cd&dn=Last.Outpost.S01E02.1080p.HEVC.x265-MeGusta&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:16, Size 1.05&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/600" title="More from this category">Other</a><br>
+				(<a href="https://thepiratebay.rocks/browse/601" title="More from this category">E-books</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266644/U.S._ARMY_UNIFORMS_AND_EQUIPMENT_1889_V" class="detLink" title="Details for U.S. ARMY UNIFORMS AND EQUIPMENT 1889^V">U.S. ARMY UNIFORMS AND EQUIPMENT 1889^V</a>
+</div>
+<a href="magnet:?xt=urn:btih:960e74e489b54649797791b1c38aacee986c9176&dn=U.S.+ARMY+UNIFORMS+AND+EQUIPMENT+1889%5EV&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/VP52/"><img src="https://thepiratebay.rocks/static/img/trusted.png" alt="Trusted" title="Trusted" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:16, Size 110.02&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/VP52/" title="Browse VP52">VP52</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266642/Class.Dismissed.S01E07.Bird.Inside.720p.HEVC.x265-MeGusta" class="detLink" title="Details for Class.Dismissed.S01E07.Bird.Inside.720p.HEVC.x265-MeGusta">Class.Dismissed.S01E07.Bird.Inside.720p.HEVC.x265-MeGusta</a>
+</div>
+<a href="magnet:?xt=urn:btih:7a21db1f4a120dec56c0fcf982a9365800bcab61&dn=Class.Dismissed.S01E07.Bird.Inside.720p.HEVC.x265-MeGusta&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:16, Size 147.93&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266639/Ink.Master.S10E16.1080p.HEVC.x265-MeGusta" class="detLink" title="Details for Ink.Master.S10E16.1080p.HEVC.x265-MeGusta">Ink.Master.S10E16.1080p.HEVC.x265-MeGusta</a>
+</div>
+<a href="magnet:?xt=urn:btih:4ebd2e5cdcec2ae221924275e5dd28d532a2e4a8&dn=Ink.Master.S10E16.1080p.HEVC.x265-MeGusta&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:16, Size 1.1&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266619/Gypsy.Sisters.S01E14.480p.x264-mSD" class="detLink" title="Details for Gypsy.Sisters.S01E14.480p.x264-mSD">Gypsy.Sisters.S01E14.480p.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:8cf1a5d5771e9fb30d49d44cee1076f7634bf4ea&dn=Gypsy.Sisters.S01E14.480p.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:14, Size 271.55&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/400" title="More from this category">Games</a><br>
+				(<a href="https://thepiratebay.rocks/browse/401" title="More from this category">PC</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266495/Warhammer.40.000.Sanctus.Reach.Sons.of.Cadia-CODEX" class="detLink" title="Details for Warhammer.40.000.Sanctus.Reach.Sons.of.Cadia-CODEX">Warhammer.40.000.Sanctus.Reach.Sons.of.Cadia-CODEX</a>
+</div>
+<a href="magnet:?xt=urn:btih:67f721b2230f82b7b8c9f4db025dd093de49951e&dn=Warhammer.40.000.Sanctus.Reach.Sons.of.Cadia-CODEX&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/mercs215/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:05, Size 1.53&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/mercs215/" title="Browse mercs215">mercs215</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266480/Class.Dismissed.S01E07.Bird.Inside.1080p.HDTV.x264-PLUTONiUM" class="detLink" title="Details for Class.Dismissed.S01E07.Bird.Inside.1080p.HDTV.x264-PLUTONiUM">Class.Dismissed.S01E07.Bird.Inside.1080p.HDTV.x264-PLUTONiUM</a>
+</div>
+<a href="magnet:?xt=urn:btih:651a0474f2072612a7781af26c53bbeb60e117d2&dn=Class.Dismissed.S01E07.Bird.Inside.1080p.HDTV.x264-PLUTONiUM&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:04, Size 608.86&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/500" title="More from this category">Porn</a><br>
+				(<a href="https://thepiratebay.rocks/browse/501" title="More from this category">Movies</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266476/Real_Anal_Lovers_3_(Evil_Angel)_XXX_WEB-DL_NEW_2018_(Split_Scene" class="detLink" title="Details for Real Anal Lovers 3 (Evil Angel) XXX WEB-DL NEW 2018 (Split Scene">Real Anal Lovers 3 (Evil Angel) XXX WEB-DL NEW 2018 (Split Scene</a>
+</div>
+<a href="magnet:?xt=urn:btih:17e7dae20f98c4feecce1cc77c9527bfe09e4bf9&dn=Real+Anal+Lovers+3+%28Evil+Angel%29+XXX+WEB-DL+NEW+2018+%28Split+Scene&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/xxxlavalxxx/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:03, Size 3.26&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/xxxlavalxxx/" title="Browse xxxlavalxxx">xxxlavalxxx</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/500" title="More from this category">Porn</a><br>
+				(<a href="https://thepiratebay.rocks/browse/501" title="More from this category">Movies</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266471/Beautiful_Tits_5_(ArchAngel)_XXX_WEB-DL_NEW_2018_(Split_Scenes)" class="detLink" title="Details for Beautiful Tits 5 (ArchAngel) XXX WEB-DL NEW 2018 (Split Scenes)">Beautiful Tits 5 (ArchAngel) XXX WEB-DL NEW 2018 (Split Scenes)</a>
+</div>
+<a href="magnet:?xt=urn:btih:481211c3e8e380a1877ac1c09373cda4fe3193d5&dn=Beautiful+Tits+5+%28ArchAngel%29+XXX+WEB-DL+NEW+2018+%28Split+Scenes%29&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/xxxlavalxxx/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:03, Size 2.52&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/xxxlavalxxx/" title="Browse xxxlavalxxx">xxxlavalxxx</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266464/My.Kitchen.Rules.S09E42.HDTV.720P.BF1.mkv" class="detLink" title="Details for My.Kitchen.Rules.S09E42.HDTV.720P.BF1.mkv">My.Kitchen.Rules.S09E42.HDTV.720P.BF1.mkv</a>
+</div>
+<a href="magnet:?xt=urn:btih:2b4f6d23e200aa388c8dde43524b54b4a8e8d761&dn=My.Kitchen.Rules.S09E42.HDTV.720P.BF1.mkv&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/bigfish5/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:03, Size 1.26&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/bigfish5/" title="Browse bigfish5">bigfish5</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266446/Class.Dismissed.S01E07.Bird.Inside.720p.HDTV.x264-PLUTONiUM" class="detLink" title="Details for Class.Dismissed.S01E07.Bird.Inside.720p.HDTV.x264-PLUTONiUM">Class.Dismissed.S01E07.Bird.Inside.720p.HDTV.x264-PLUTONiUM</a>
+</div>
+<a href="magnet:?xt=urn:btih:2210b20a999faa3b97a424c5327e2ac36177f248&dn=Class.Dismissed.S01E07.Bird.Inside.720p.HDTV.x264-PLUTONiUM&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:02, Size 322.37&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266445/Class.Dismissed.S01E07.Bird.Inside.480p.x264-mSD" class="detLink" title="Details for Class.Dismissed.S01E07.Bird.Inside.480p.x264-mSD">Class.Dismissed.S01E07.Bird.Inside.480p.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:c9e900ce6a67f21537e6be41c948a369748adac8&dn=Class.Dismissed.S01E07.Bird.Inside.480p.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:02, Size 80.23&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266444/Class.Dismissed.S01E07.Bird.Inside.XviD-AFG" class="detLink" title="Details for Class.Dismissed.S01E07.Bird.Inside.XviD-AFG">Class.Dismissed.S01E07.Bird.Inside.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:7aeea3d3fa7794d70b25b11e30ae25c8ec8dbf31&dn=Class.Dismissed.S01E07.Bird.Inside.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;15:02, Size 232.67&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266422/Gypsy.Sisters.S01E13.720p.HEVC.x265-MeGusta" class="detLink" title="Details for Gypsy.Sisters.S01E13.720p.HEVC.x265-MeGusta">Gypsy.Sisters.S01E13.720p.HEVC.x265-MeGusta</a>
+</div>
+<a href="magnet:?xt=urn:btih:839f1ca8ae9bcd79727d8c491b69251a662f8d6b&dn=Gypsy.Sisters.S01E13.720p.HEVC.x265-MeGusta&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:59, Size 632.9&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266421/Gypsy.Sisters.S01E14.XviD-AFG" class="detLink" title="Details for Gypsy.Sisters.S01E14.XviD-AFG">Gypsy.Sisters.S01E14.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:1c0298dc82ec70bf1d82d951a1bbf69a2f7140c8&dn=Gypsy.Sisters.S01E14.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:59, Size 774.57&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266376/Wyatt.Cenacs.Problem.Areas.S01E02.480p.x264-mSD" class="detLink" title="Details for Wyatt.Cenacs.Problem.Areas.S01E02.480p.x264-mSD">Wyatt.Cenacs.Problem.Areas.S01E02.480p.x264-mSD</a>
+</div>
+<a href="magnet:?xt=urn:btih:40b3a5e5789ec5868a856653481f3a90882c677b&dn=Wyatt.Cenacs.Problem.Areas.S01E02.480p.x264-mSD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:57, Size 89.02&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266374/Class.Dismissed.S01E07.Bird.Inside.HDTV.x264-PLUTONiUM" class="detLink" title="Details for Class.Dismissed.S01E07.Bird.Inside.HDTV.x264-PLUTONiUM">Class.Dismissed.S01E07.Bird.Inside.HDTV.x264-PLUTONiUM</a>
+</div>
+<a href="magnet:?xt=urn:btih:71122cb454cc0965b1de93df5c0653b834439c47&dn=Class.Dismissed.S01E07.Bird.Inside.HDTV.x264-PLUTONiUM&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:57, Size 120.4&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266373/Selling.Houses.Australia.S11E08.Webrip.x264-MFO.mp4" class="detLink" title="Details for Selling.Houses.Australia.S11E08.Webrip.x264-MFO.mp4">Selling.Houses.Australia.S11E08.Webrip.x264-MFO.mp4</a>
+</div>
+<a href="magnet:?xt=urn:btih:2f7978833e6f4ff5083b98c0853a6ac14e6dbdbe&dn=Selling.Houses.Australia.S11E08.Webrip.x264-MFO.mp4&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TlanImass/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:56, Size 361.78&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TlanImass/" title="Browse TlanImass">TlanImass</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266370/Legion.S02E04.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA.mkv" class="detLink" title="Details for Legion.S02E04.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA.mkv">Legion.S02E04.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA.mkv</a>
+</div>
+<a href="magnet:?xt=urn:btih:a7f8c40770bebcf5b4ec348eb71ea1ad851b8a5d&dn=Legion.S02E04.1080p.10bit.WEBRip.6CH.x265.HEVC-PSA.mkv&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/Dr.XJ/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:53, Size 491.95&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/Dr.XJ/" title="Browse Dr.XJ">Dr.XJ</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266289/Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF" class="detLink" title="Details for Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF">Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF</a>
+</div>
+<a href="magnet:?xt=urn:btih:8fe4d028fdb6e661dc271c4e00f94064896c6da3&dn=Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:52, Size 406.58&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266286/Wyatt.Cenacs.Problem.Areas.S01E02.XviD-AFG" class="detLink" title="Details for Wyatt.Cenacs.Problem.Areas.S01E02.XviD-AFG">Wyatt.Cenacs.Problem.Areas.S01E02.XviD-AFG</a>
+</div>
+<a href="magnet:?xt=urn:btih:9719054cebd3141f7e38ee5c5a6fbc4edb2e5535&dn=Wyatt.Cenacs.Problem.Areas.S01E02.XviD-AFG&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/TvTeam/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:52, Size 252.6&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/TvTeam/" title="Browse TvTeam">TvTeam</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266285/Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF[N1C]" class="detLink" title="Details for Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF[N1C]">Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF[N1C]</a>
+</div>
+<a href="magnet:?xt=urn:btih:bf5a5354f9540c5fd95f86d0a6c10da28397f4c6&dn=Wyatt.Cenacs.Problem.Areas.S01E02.720p.HDTV.x264-aAF%5BN1C%5D&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/juggs99/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:51, Size 402.52&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/juggs99/" title="Browse juggs99">juggs99</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266282/The.100.S05E01.Eden.720p.AMZN.WEBRip.DDP5.1.x264-CasStudio" class="detLink" title="Details for The.100.S05E01.Eden.720p.AMZN.WEBRip.DDP5.1.x264-CasStudio">The.100.S05E01.Eden.720p.AMZN.WEBRip.DDP5.1.x264-CasStudio</a>
+</div>
+<a href="magnet:?xt=urn:btih:bcb3ef4b596547b17a08b336299d44336747cc69&dn=The.100.S05E01.Eden.720p.AMZN.WEBRip.DDP5.1.x264-CasStudio&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/makintos13/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:50, Size 1.5&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/makintos13/" title="Browse makintos13">makintos13</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266272/The.100.S05E01.Eden.1080p.AMZN.WEBRip.DDP5.1.x264-CasStudio" class="detLink" title="Details for The.100.S05E01.Eden.1080p.AMZN.WEBRip.DDP5.1.x264-CasStudio">The.100.S05E01.Eden.1080p.AMZN.WEBRip.DDP5.1.x264-CasStudio</a>
+</div>
+<a href="magnet:?xt=urn:btih:faae6a17cbf352478b1840320a3b1b5f021a8d28&dn=The.100.S05E01.Eden.1080p.AMZN.WEBRip.DDP5.1.x264-CasStudio&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/makintos13/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:50, Size 4.48&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/makintos13/" title="Browse makintos13">makintos13</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266239/The.100.S05E01.WEBRip.x264-ION10" class="detLink" title="Details for The.100.S05E01.WEBRip.x264-ION10">The.100.S05E01.WEBRip.x264-ION10</a>
+</div>
+<a href="magnet:?xt=urn:btih:1208791b752af0ca2836486b91d6787512a7eb14&dn=The.100.S05E01.WEBRip.x264-ION10&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/makintos13/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:49, Size 401.03&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/makintos13/" title="Browse makintos13">makintos13</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266238/The.100.S05E01.1080p.WEB.x264-METCON" class="detLink" title="Details for The.100.S05E01.1080p.WEB.x264-METCON">The.100.S05E01.1080p.WEB.x264-METCON</a>
+</div>
+<a href="magnet:?xt=urn:btih:917fd10fafee6d3467aa9910840b2515ec1cf587&dn=The.100.S05E01.1080p.WEB.x264-METCON&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/makintos13/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:49, Size 1.8&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/makintos13/" title="Browse makintos13">makintos13</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/400" title="More from this category">Games</a><br>
+				(<a href="https://thepiratebay.rocks/browse/401" title="More from this category">PC</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266237/PREONE-CODEX" class="detLink" title="Details for PREONE-CODEX">PREONE-CODEX</a>
+</div>
+<a href="magnet:?xt=urn:btih:f7af06f562ad129890885af7abdb56bb1c602349&dn=PREONE-CODEX&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11"><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:49, Size 1.86&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/ovan20/" title="Browse ovan20">ovan20</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/500" title="More from this category">Porn</a><br>
+				(<a href="https://thepiratebay.rocks/browse/505" title="More from this category">HD - Movies</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266236/Tessa_Lane_Johnny_Sins" class="detLink" title="Details for Tessa Lane Johnny Sins">Tessa Lane Johnny Sins</a>
+</div>
+<a href="magnet:?xt=urn:btih:016784886e102975a7c1f5313c515ee3370d77f1&dn=Tessa+Lane+Johnny+Sins&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11"><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:49, Size 234.68&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/adderiyk/" title="Browse adderiyk">adderiyk</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr>
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/205" title="More from this category">TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266235/Wyatt.Cenacs.Problem.Areas.S01E02.HDTV.x264-aAF[ettv]" class="detLink" title="Details for Wyatt.Cenacs.Problem.Areas.S01E02.HDTV.x264-aAF[ettv]">Wyatt.Cenacs.Problem.Areas.S01E02.HDTV.x264-aAF[ettv]</a>
+</div>
+<a href="magnet:?xt=urn:btih:49fe75c09732d8dadc702652af310b47e06b97a6&dn=Wyatt.Cenacs.Problem.Areas.S01E02.HDTV.x264-aAF%5Bettv%5D&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/ettv/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:49, Size 122.07&nbsp;MiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/ettv/" title="Browse ettv">ettv</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr class="alt">
+		<td class="vertTh">
+			<center>
+				<a href="https://thepiratebay.rocks/browse/200" title="More from this category">Video</a><br>
+				(<a href="https://thepiratebay.rocks/browse/208" title="More from this category">HD - TV shows</a>)
+			</center>
+		</td>
+		<td>
+<div class="detName">			<a href="https://thepiratebay.rocks/torrent/21266234/The.100.S05E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE" class="detLink" title="Details for The.100.S05E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE">The.100.S05E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE</a>
+</div>
+<a href="magnet:?xt=urn:btih:2183190caf3a11571052d38f774c56dce4071705&dn=The.100.S05E01.iNTERNAL.720p.WEB.x264-BAMBOOZLE&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80" title="Download this torrent using magnet"><img src="https://thepiratebay.rocks/static/img/icon-magnet.gif" alt="Magnet link" height="12" width="12"></a><a href="https://thepiratebay.rocks/user/makintos13/"><img src="https://thepiratebay.rocks/static/img/vip.gif" alt="VIP" title="VIP" style="width:11px;" border="0" height="11" width="11"></a><img src="https://thepiratebay.rocks/static/img/11x11p.png" height="11" width="11">			<font class="detDesc">Uploaded Today&nbsp;14:49, Size 1.04&nbsp;GiB, ULed by  <a class="detDesc" href="https://thepiratebay.rocks/user/makintos13/" title="Browse makintos13">makintos13</a> </font>
+		</td>
+		<td align="right">0</td>
+		<td align="right">0</td>
+	</tr>
+<tr><td colspan="9" style="text-align:center;">
+<b>1</b>&nbsp;<a href="/recent/2">2</a>&nbsp;<a href="/recent/3">3</a>&nbsp;<a href="/recent/4">4</a>&nbsp;<a href="/recent/5">5</a>&nbsp;<a href="/recent/6">6</a>&nbsp;<a href="/recent/7">7</a>&nbsp;<a href="/recent/8">8</a>&nbsp;<a href="/recent/9">9</a>&nbsp;<a href="/recent/10">10</a>&nbsp;<a href="/recent/11">11</a>&nbsp;<a href="/recent/12">12</a>&nbsp;<a href="/recent/13">13</a>&nbsp;<a href="/recent/14">14</a>&nbsp;<a href="/recent/15">15</a>&nbsp;<a href="/recent/16">16</a>&nbsp;<a href="/recent/17">17</a>&nbsp;<a href="/recent/18">18</a>&nbsp;<a href="/recent/19">19</a>&nbsp;<a href="/recent/20">20</a>&nbsp;<a href="/recent/21">21</a>&nbsp;<a href="/recent/22">22</a>&nbsp;<a href="/recent/23">23</a>&nbsp;<a href="/recent/24">24</a>&nbsp;<a href="/recent/25">25</a>&nbsp;<a href="/recent/26">26</a>&nbsp;<a href="/recent/27">27</a>&nbsp;<a href="/recent/28">28</a>&nbsp;<a href="/recent/29">29</a>&nbsp;<a href="/recent/30">30</a>&nbsp;<a href="/recent/2"><img src="/static/img/next.gif" border="0" alt="Next"/></a>&nbsp;</td></tr>
+</table>
+</div>
+			<div class="ads" id="sky-banner">
+				 <iframe src="https://thepiratebay.rocks/static/ads/exo_na/sky1.html" width="120" height="600" frameborder="0" scrolling="no"></iframe>
+			</div>
+			<script type="text/javascript" src="https://thepiratebay.rocks/static/ads/ad-scroll.js"></script>
+	</div><!-- //div:content -->
+	
+
+	<div id="foot" style="text-align:center;margin-top:1em;">
+
+			 <iframe src="https://thepiratebay.rocks/static/ads/exo_na/bottom.html" width="728" height="90" frameborder="0" scrolling="no"></iframe>
+				<p>
+	<br /> <b><a href="https://piratebay-proxylist.com">Pirate Bay</a></b> | <b><a href="https://thepiratebay.rocks">The Pirate Bay</a></b>
+	<br /><br /> 
+			<a href="/login" title="Login">Login</a> | 
+			<a href="/register" title="Register">Register</a> | 
+			<a href="/language" title="Select language">Language / Select language</a> |
+			<a href="/about" title="About">About</a> |
+			<a href="/blog" title="Blog">Blog</a>
+			<br />
+			<!--<a href="/contact" title="Contact us">Contact us</a> |-->
+			<a href="/policy" title="Usage policy">Usage policy</a> |
+			<a href="http://uj3wazyk5u4hnvtk.onion" title="TOR">TOR</a> |
+			<a href="/doodles" title="Doodles">Doodles</a> |
+			<a href="http://pirates-forum.org/" title="Forum" target="_blank">Forum</a> 
+			<br />
+		</p>
+
+<br /><a href="http://bitcoin.org" rel="nofollow" target="_NEW">BitCoin</a>: <b><a rel="nofollow" href="bitcoin:1Cm9WMesGftSNwDFzeX8KtkSyyLUpZGcYV">1Cm9WMesGftSNwDFzeX8KtkSyyLUpZGcYV</a></b><br /><br />
+
+		<div id="fbanners">
+			<a href="/rss" class="rss" title="RSS"><img src="https://thepiratebay.rocks/static/img/rss_small.gif" alt="RSS" height="16" width="16"/></a>
+		</div><!-- // div:fbanners -->
+	</div><!-- // div:foot -->
+
+</body>
+</html>
