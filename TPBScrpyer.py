@@ -1,4 +1,4 @@
-class ScrpyerXinHuaNet:
+class ScrpyerTPB():
     """[summary]
     """
     import bs4
@@ -6,7 +6,7 @@ class ScrpyerXinHuaNet:
     # urlHtmlBase = "file:///home/ylin/politiqueJournalNpl/"
     urlHtmlBase = "http://www.xinhuanet.com/"
     # urlHtmlBase = "file:///home/ylin/politiqueJournalNpl/xinhuaIndex.html"
-    proxyList = 'https://raw.githubusercontent.com/proxybay/proxybay.github.io/master/index.html'
+    proxyListUrl = 'https://raw.githubusercontent.com/proxybay/proxybay.github.io/master/index.html'
     articleUrlRegexp = r'.+/(?P<catalog>.+)/(?P<yearmonth>\d{4}-\d{2})/(?P<day>\d{2})/(?P<id>c_\d{10}).htm'
     urlDateBasePatten = "{year:04d}-{month:02d}/{day:02d}/"
     urlArticlePatten = "nw.D110000renmrb_{year:04d}{month:02d}{day:02d}_{num:d}-{page:02d}.htm"
@@ -19,16 +19,40 @@ class ScrpyerXinHuaNet:
         import req
         self.req = req.req(proxy=self.proxy)
 
-    def getTPBMirrorList(self):
+    def scrpyTPBMirrorList(self, url=None):
         import bs4
+
+        if not url:
+            url = self.proxyListUrl
+
         try:
-            content = self.req.getUrl(self.proxyList)
+            content = self.req.getUrl(url)
         except Exception as err:
             print(err)
             raise
 
         dom = bs4.BeautifulSoup(content, "html.parser")
-        print(dom)
+        sites = []
+        for siteTD in dom.select('.site > a'):
+            sites.append(siteTD.get('href'))
+
+        return sites
+
+    def scrpyTurrentList(self, url):
+        import bs4
+        try:
+            content = self.req.getUrl(url)
+        except Exception as err:
+            print(err)
+            raise
+
+        'magnet:?xt=urn:btih:17e3c9fee45ad6e0a2a4cd4bd4e3ff4cbc380e27&dn=DivineBitches--DiB-43103+Delirious+Hunter+and+DJ+Hi+HD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80'
+        dom = bs4.BeautifulSoup(content, "html.parser")
+        sites = []
+        for tr in dom.select('#searchResult > tbody:nth-child(2) > tr:nth-child(1)'):
+            print(tr)
+
+        return sites
 
     def parseArticleRef(self, href):
         import re
@@ -194,85 +218,3 @@ class ScrpyerXinHuaNet:
             'content': article
         }
         return articleObj
-
-
-def dumpObj(pathDir, name, obj):
-    import os
-    import json
-    result = False
-    os.makedirs(name=pathDir, mode=0o755, exist_ok=True)
-    filePath = "{:s}{:s}".format(pathDir, name)
-    if not os.path.exists(filePath):
-        file = open(file=filePath, mode='w+', encoding='utf-8')
-        try:
-            json.dump(obj=obj, fp=file, ensure_ascii=False,
-                      indent=4, sort_keys=True)
-            result = True
-        except Exception as err:
-            print(err)
-            pass
-        finally:
-            file.close()
-    else:
-        print("File {:s} already exist skip.".format(filePath))
-
-    return result
-
-
-def scrpyPaper(pathPrefix=""):
-    """[summary]
-    """
-
-    import os
-    from datetime import datetime
-
-    scrpyer = ScrpyerXinHuaNet()
-
-    try:
-        paperObj = scrpyer.scrpyIndexs()
-    except Exception as err:
-        print("[{0}] Scrpy Index failed. Caused by {1}".format(
-            str(datetime.now()), err))
-        raise err
-
-    indexDir = "{:s}index/".format(pathPrefix)
-    contentDir = "{:s}content/".format(pathPrefix)
-
-    indexFileName = "xinhuanet_{0}.json".format(paperObj['metadata']['ts'])
-    print("Writing file {:s}".format(indexFileName))
-    dumpObj(indexDir, indexFileName, paperObj)
-
-    numFileWriten = 0
-    numIndex = 0
-    numFileSkip = 0
-    numTotalArticle = len(paperObj['articles'])
-    for articleRef in paperObj['articles']:
-        numIndex = numIndex + 1
-        articleFileName = "{:s}.json".format(articleRef['id'])
-        articleFilePath = "{:s}{:s}".format(contentDir, articleFileName)
-        if os.path.exists(articleFilePath):
-            print("File {:s} already exist skip.".format(articleFilePath))
-            numFileSkip = numFileSkip + 1
-            continue
-
-        article = None
-        try:
-            article = scrpyer.scrpyArticle(articleRef['url'])
-        except Exception as err:
-            print("[{}] Scrpy article {} failed. Caused by {}".format(
-                str(datetime.now()), articleRef['url'], err))
-
-        if article:
-            log = "[{}][{:03d}/{:03d}][{}]{}".format(
-                str(datetime.now()), numIndex, numTotalArticle, articleRef['id'], articleRef['title'])
-            print(log)
-            if dumpObj(contentDir, articleFileName, article):
-                numFileWriten = numFileWriten + 1
-
-    return {
-        'index': paperObj['metadata']['ts'],
-        'total': numTotalArticle,
-        'write': numFileWriten,
-        'skip': numFileSkip,
-        'err': numTotalArticle-numFileWriten-numFileSkip
-    }
