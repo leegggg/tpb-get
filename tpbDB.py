@@ -11,7 +11,8 @@ class TPBDatabase():
             ts real,
             magnet text,
             title text,
-            siteid text
+            siteid text,
+            size text
         )
     """
 
@@ -53,7 +54,8 @@ class TPBDatabase():
         if ts:
             sql = 'insert or replace into tpbmirror (url, ts) VALUES (?,?)'
 
-        value = (mirror, datetime.now().timestamp())
+        value = (mirror, datetime.now().timestamp(),)
+        # print(value)
 
         conn = sqlite3.connect(self.mirrorDB)
         c = conn.cursor()
@@ -99,8 +101,8 @@ class TPBDatabase():
 
         sql = '''
         insert or ABORT into tpbtorrent (
-            id,btih,user,catalog,ts,magnet,title,siteid
-            ) VALUES (?,?,?,?,?,?,?,?)
+            id,btih,user,catalog,ts,magnet,title,siteid,size
+            ) VALUES (?,?,?,?,?,?,?,?,?)
         '''
 
         value = (
@@ -111,7 +113,8 @@ class TPBDatabase():
             torrent.get('ts'),
             torrent.get('magnet'),
             torrent.get('title'),
-            torrent.get('siteid')
+            torrent.get('siteid'),
+            torrent.get('size')
         )
 
         conn = sqlite3.connect(self.mirrorDB)
@@ -123,19 +126,36 @@ class TPBDatabase():
     def postTorrents(self, torrents):
         import sqlite3
 
-        numWriten = 0
-        numError = 0
-        numTotal = len(torrents)
-
+        sql = '''
+        INSERT OR IGNORE into tpbtorrent (
+            id,btih,user,catalog,ts,magnet,title,siteid,size
+            ) VALUES (?,?,?,?,?,?,?,?,?)
+        '''
+        values = []
         for torrent in torrents:
-            try:
-                self.postTorrent(torrent)
-                numWriten += 1
-            except sqlite3.IntegrityError:
-                numError += 1
+            value = (
+                torrent.get('id'),
+                torrent.get('btih'),
+                torrent.get('user'),
+                torrent.get('catalog'),
+                torrent.get('ts'),
+                torrent.get('magnet'),
+                torrent.get('title'),
+                torrent.get('siteid'),
+                torrent.get('size')
+            )
+            values.append(value)
+
+        conn = sqlite3.connect(self.mirrorDB)
+        c = conn.cursor()
+        c.executemany(sql, values)
+        conn.commit()
+        conn.close()
+
+        numWriten = c.rowcount
+        numTotal = len(torrents)
 
         return {
             'total': numTotal,
-            'error': numError,
             'ok': numWriten
         }

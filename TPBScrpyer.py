@@ -1,6 +1,7 @@
 class ScrpyerTPB():
     """[summary]
     """
+    # pylint: disable-msg=C0103
     import bs4
 
     proxyListUrl = 'https://raw.githubusercontent.com/proxybay/proxybay.github.io/master/index.html'
@@ -27,7 +28,9 @@ class ScrpyerTPB():
         dom = bs4.BeautifulSoup(content, "html.parser")
         sites = []
         for siteTD in dom.select('.site > a'):
-            sites.append(siteTD.get('href'))
+            site = siteTD.get('href')
+            sites.append(site)
+            sites.append("{:s}{:s}".format(site, "/?load="))
 
         return sites
 
@@ -35,17 +38,17 @@ class ScrpyerTPB():
         import re
 
         hrefRegexpMatch = re.compile(
-            '^http[s]{0,1}://.*/browse/(?P<catalog>[0-9]+[1-9])$').search(href)
+            '/browse/(?P<catalog>[0-9]+[1-9])$').search(href)
         if hrefRegexpMatch:
             res['catalog'] = hrefRegexpMatch.group('catalog')
 
         hrefRegexpMatch = re.compile(
-            '^http[s]{0,1}://.*/user/(?P<user>.+)/$').search(href)
+            '/user/(?P<user>.+)/$').search(href)
         if hrefRegexpMatch:
             res['user'] = hrefRegexpMatch.group('user')
 
         hrefRegexpMatch = re.compile(
-            '^http[s]{0,1}://.*/torrent/(?P<siteid>[0-9]+)/(?P<title>.+)$').search(href)
+            '/torrent/(?P<siteid>[0-9]+)/(?P<title>.+)$').search(href)
         if hrefRegexpMatch:
             res['siteid'] = hrefRegexpMatch.group('siteid')
             res['title'] = hrefRegexpMatch.group('title')
@@ -68,6 +71,7 @@ class ScrpyerTPB():
     def parseTorrent(self, tr):
         import uuid
         from datetime import datetime
+        import re
         res = {}
 
         for atag in tr.select('a'):
@@ -79,6 +83,14 @@ class ScrpyerTPB():
                 res['id'] = uuid.uuid4().hex
             if not res.get('ts'):
                 res['ts'] = datetime.now().timestamp()
+
+        descDom = tr.select('.detDesc')
+        if descDom:
+            desc = descDom[0].text
+            hrefRegexpMatch = re.compile(
+                r'Uploaded.*, Size (?P<title>[0-9\.]+.+iB)').search(desc)
+            if hrefRegexpMatch:
+                res['size'] = hrefRegexpMatch.group('title')
 
         return res
 

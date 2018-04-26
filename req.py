@@ -2,6 +2,7 @@ class req():
 
     retry = 3
     proxy = None
+    timeout = 5
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
         'Accept-Language': 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
@@ -21,7 +22,7 @@ class req():
             urllib.request.install_opener(opener)
 
         request = urllib.request.Request(url=url, headers=self.headers)
-        socket.setdefaulttimeout(60)
+        socket.setdefaulttimeout(self.timeout)
         error = ""
         for i in range(retry):
             try:
@@ -51,7 +52,7 @@ class req():
 
         if minify:
             content = content.replace('\n', '').replace(
-                '\t', '').replace('\r', '')
+                '\t', '').replace('\r', '').replace('\xa0', '')
         return content
 
     def getUrl(self, url, retry=3, proxy=None):
