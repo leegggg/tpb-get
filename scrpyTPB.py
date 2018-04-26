@@ -87,6 +87,7 @@ def main():
     from datetime import datetime
     import argparse
     import TPBScrpyer
+    import tpbDB
 
     parser = argparse.ArgumentParser(description='scrpye Xinhuanet')
     parser.add_argument('--path', dest='path', action='store', default='./')
@@ -102,9 +103,19 @@ def main():
         ts=datetime.now()))
 
     scrpyer = TPBScrpyer.ScrpyerTPB()
-    scrpyer.scrpyTPBMirrorList()
-    scrpyer.scrpyTurrentList('https://thepiratebay.rocks/recent/1')
-
+    db = tpbDB.TPBDatabase()
+    mirrorList = scrpyer.scrpyTPBMirrorList()
+    db.postMirrors(mirrorList, ts=False)
+    mirrors = db.getMirrors(limit=1, offset=100)
+    print(mirrors)
+    # scrpyer.scrpyTPBMirrorList()
+    # scrpyer.scrpyTurrentList('https://thepiratebay.rocks/recent/1')
+    torrentList = scrpyer.scrpyTorrentList(
+        'file:///home/ylin/tpb-get/tpb.html')
+    res = db.postTorrents(torrentList)
+    print(res)
+    # resList = scrpyer.scrpyTorrentList('https://www.example.org/')
+    # print(resList)
     return
 
 
