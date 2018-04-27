@@ -1,3 +1,6 @@
+import logging
+
+
 class TPBDatabase():
     mirrorDB = None
     torrentDB = None
@@ -24,9 +27,12 @@ class TPBDatabase():
     """
 
     def __init__(self, db="./tpb.db", mirrorDB=None, torrentDB=None):
-        if not mirrorDB:
+        self.mirrorDB = mirrorDB
+        if not self.mirrorDB:
             self.mirrorDB = db
-        if not torrentDB:
+
+        self.torrentDB = torrentDB
+        if not self.torrentDB:
             self.torrentDB = db
 
         self.createTables()
@@ -55,7 +61,7 @@ class TPBDatabase():
             sql = 'insert or replace into tpbmirror (url, ts) VALUES (?,?)'
 
         value = (mirror, datetime.now().timestamp(),)
-        # print(value)
+        logging.debug(value)
 
         conn = sqlite3.connect(self.mirrorDB)
         c = conn.cursor()
@@ -117,7 +123,7 @@ class TPBDatabase():
             torrent.get('size')
         )
 
-        conn = sqlite3.connect(self.mirrorDB)
+        conn = sqlite3.connect(self.torrentDB)
         c = conn.cursor()
         c.execute(sql, value)
         conn.commit()
@@ -146,7 +152,7 @@ class TPBDatabase():
             )
             values.append(value)
 
-        conn = sqlite3.connect(self.mirrorDB)
+        conn = sqlite3.connect(self.torrentDB)
         c = conn.cursor()
         c.executemany(sql, values)
         conn.commit()

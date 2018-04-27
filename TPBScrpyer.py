@@ -1,3 +1,6 @@
+import logging
+
+
 class ScrpyerTPB():
     """[summary]
     """
@@ -68,6 +71,60 @@ class ScrpyerTPB():
 
         return res
 
+    def parseTs(self, uploadStr):
+        from datetime import datetime
+        import re
+        from datetime import timedelta
+
+        ts = datetime.utcnow()
+
+        # Uploaded 59 mins ago,
+        regexpMatch = re.compile(
+            r'(?P<mins>[0-9]{1,2}).+mins.+ago').search(uploadStr)
+        if regexpMatch:
+            mins = int(regexpMatch.group('mins'))
+            ts = ts - timedelta(0, 60*mins, 0)
+
+        # Uploaded Today 08:51,
+        regexpMatch = re.compile(
+            r'Today.+(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
+        if regexpMatch:
+            hour = int(regexpMatch.group('hour'))
+            mint = int(regexpMatch.group('mint'))
+            ts = ts.replace(hour=hour, minute=mint)
+
+        # Uploaded Y-day 00:05,
+        regexpMatch = re.compile(
+            r'Y-day.+(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
+        if regexpMatch:
+            hour = int(regexpMatch.group('hour'))
+            mint = int(regexpMatch.group('mint'))
+            ts = ts.replace(hour=hour, minute=mint)
+            ts = ts - timedelta(1, 0, 0)
+
+        # Uploaded 04-25 13:08,
+        regexpMatch = re.compile(
+            r'(?P<month>[0-9]{2})-(?P<day>[0-9]{2}).+(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
+        if regexpMatch:
+            hour = int(regexpMatch.group('hour'))
+            mint = int(regexpMatch.group('mint'))
+            month = int(regexpMatch.group('month'))
+            day = int(regexpMatch.group('day'))
+            ts = ts.replace(hour=hour, minute=mint, month=month, day=day)
+
+        # Uploaded 11-24 2016,
+        regexpMatch = re.compile(
+            r'(?P<month>[0-9]{2})-(?P<day>[0-9]{2}).+(?P<year>[0-9]{4})').search(uploadStr)
+        if regexpMatch:
+            year = int(regexpMatch.group('year'))
+            month = int(regexpMatch.group('month'))
+            day = int(regexpMatch.group('day'))
+            ts = ts.replace(year=year, month=month, day=day)
+
+        # logging.debug("{},{}".format(uploadStr, ts))
+
+        return ts.timestamp()
+
     def parseTorrent(self, tr):
         import uuid
         from datetime import datetime
@@ -88,9 +145,10 @@ class ScrpyerTPB():
         if descDom:
             desc = descDom[0].text
             hrefRegexpMatch = re.compile(
-                r'Uploaded.*, Size (?P<title>[0-9\.]+.+iB)').search(desc)
+                r'Uploaded(?P<upload>.*), Size (?P<size>[0-9\.]+.+iB)').search(desc)
             if hrefRegexpMatch:
-                res['size'] = hrefRegexpMatch.group('title')
+                res['size'] = hrefRegexpMatch.group('size')
+                res['ts'] = self.parseTs(hrefRegexpMatch.group('upload'))
 
         return res
 

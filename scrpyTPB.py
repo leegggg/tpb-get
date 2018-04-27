@@ -12,8 +12,8 @@ class scrpyTPB():
         self.db.postMirrors(mirrorList, ts=False)
 
     def scrpyTPBInMirrors(self, path='/recent/0', threshold=0.3, minSite=3):
-        total = 1
-        ok = 1
+        total = 0
+        ok = 0
         ratio = 1
         site = 0
         site_num = 0
@@ -36,10 +36,13 @@ class scrpyTPB():
             self.db.postMirror(host, ts=True)
             site = site + 1
             res = self.db.postTorrents(torrentList)
-            logging.info("{}-{}".format(url, res))
+            logging.info("{} {}".format(url, res))
             total = total + res['total']
             ok = ok + res['ok']
-            ratio = ok / total
+            if not total:
+                ratio = 1
+            else:
+                ratio = ok / total
             if ratio < threshold and site > minSite:
                 break
 
@@ -49,54 +52,104 @@ class scrpyTPB():
                        pageLimit=10, minResource=20):
         ok = 0
         index = 0
+
         for index in range(pageLimit):
             path = "{:s}{:d}".format(basePath, index+offset)
+            if '/user/' in basePath:
+                path = "{:s}{:d}/3".format(basePath, index+offset)
+            if '/browse/' in basePath:
+                path = "{:s}{:d}/3".format(basePath, index+offset)
+            if '/search/' in basePath:
+                path = "{:s}{:d}/7//".format(basePath, index+offset)
+
             res = self.scrpyTPBInMirrors(path=path)
-            print(res)
+            logging.info(res)
             ok = ok + res.get('ok')
             if res.get('ok') < minResource:
                 break
 
-        return {'ok': ok, 'page': index + 1}
+        return {'basepath': basePath, 'ok': ok, 'page': index + 1}
 
     def __init__(self):
         import argparse
         import TPBScrpyer
         import tpbDB
 
-        parser = argparse.ArgumentParser(description='scrpye Xinhuanet')
+        parser = argparse.ArgumentParser(description='scrpye TPB torrents')
+        parser.add_argument('--offset', dest='offset',
+                            action='store', type=int, default=0)
+        parser.add_argument('--pages', dest='pages',
+                            action='store', type=int, default=1)
+        parser.add_argument('--min-resource', dest='minResource',
+                            action='store', type=int, default=-1)
+        parser.add_argument('--mirrordb', dest='mirrordb',
+                            action='store', default=None)
+        parser.add_argument('--torrentdb', dest='torrentdb',
+                            action='store', default=None)
+        parser.add_argument('--db', dest='db',
+                            action='store', default='./tpb.db')
+        parser.add_argument('--update-mirror', dest='updatemirror',
+                            action='store_true')
+        parser.add_argument('--add-mirror', dest='addmirror',
+                            action='store', default=None)
+        parser.add_argument('--log-level', dest='logLevel',
+                            action='store', type=int, default=2)
         parser.add_argument('--path', dest='path',
-                            action='store', default='./')
-        args = parser.parse_args()
-
-        self.pathPrefix = args.path
-        if not self.pathPrefix[len(self.pathPrefix)-1] == '/':
-            self.pathPrefix = self.pathPrefix + '/'
-
-        self.scrpyer = TPBScrpyer.ScrpyerTPB()
-        self.db = tpbDB.TPBDatabase()
+                            action='store', default='/recent/')
+        self.args = parser.parse_args()
 
         logging.basicConfig(format='[%(asctime)s] %(levelname)s [%(funcName)s: %(filename)s, %(lineno)d] %(message)s',
-                            datefmt='%Y-%m-%d %H:%M:%S', level=logging.DEBUG)
+                            datefmt='%Y-%m-%d %H:%M:%S', level=self.args.logLevel*10)
+        logging.info("Start TPB Scrpyer by linyz")
+        self.scrpyer = TPBScrpyer.ScrpyerTPB()
+
+        mirrordb = self.args.mirrordb
+        if not mirrordb:
+            mirrordb = self.args.db
+        logging.debug("Mirror DB: {}".format(mirrordb))
+
+        torrentdb = self.args.torrentdb
+        if not torrentdb:
+            torrentdb = self.args.db
+        logging.debug("Torrent DB: {}".format(torrentdb))
+
+        self.db = tpbDB.TPBDatabase(mirrorDB=mirrordb, torrentDB=torrentdb)
 
     def main(self):
         """[summary]
         """
 
-        from datetime import datetime
+        if self.args.addmirror:
+            mirror = self.args.addmirror
+            logging.info("Mirror add updated from {}".format(
+                mirror))
+            self.db.postMirror(mirror=mirror, ts=True)
+            logging.debug(self.db.getMirrors(limit=1))
+            return
 
-        # pathPrefix = '/home/ylin/host_home/RenminRibaoTest/'
-
-        logging.info("[{ts}] Scrpy into {db}".format(
-            ts=datetime.now(), db=self.pathPrefix))
-        logging.info("[{ts}] All processes joined. Big brother is watching you".format(
-            ts=datetime.now()))
+        if self.args.updatemirror:
+            logging.info("Mirror List update from {}".format(
+                self.scrpyer.proxyListUrl))
+            self.updateTPBMirror()
+            logging.debug(self.db.getMirrors(limit=10))
+            return
 
         # torrents = self.scrpyer.scrpyTorrentList(
         #     'file:///home/ylin/tpb-get/crus.html')
         # print(torrents)
-        # self.updateTPBMirror()
-        res = self.scrpyTPBRecent(offset=0, pageLimit=5, minResource=0)
+        logging.info(
+            "Get torrents of {path} from page {offset} to page {end} tpb mirrors".format(
+                path=self.args.path, offset=self.args.offset,
+                end=self.args.offset+self.args.pages
+            ))
+
+        path = self.args.path
+        if path and path[len(path)-1] != '/':
+            path = path + '/'
+
+        res = self.scrpyTPBRecent(
+            offset=self.args.offset, pageLimit=self.args.pages,
+            minResource=self.args.minResource, basePath=path)
         logging.info(res)
         # mirrorList = scrpyer.scrpyTPBMirrorList()
         # db.postMirrors(mirrorList, ts=False)
@@ -113,3 +166,4 @@ class scrpyTPB():
 if __name__ == '__main__':
     main = scrpyTPB()
     main.main()
+    logging.info("All processes joined. Big brother is watching you")

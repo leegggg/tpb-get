@@ -1,3 +1,6 @@
+import logging
+
+
 class req():
 
     retry = 3
@@ -30,7 +33,7 @@ class req():
                 break
             except Exception as err:
                 error = err
-                print("Http open Error: {0}, retry {1}, url: {2}".format(
+                logging.debug("Http open Error: {0}, retry {1}, url: {2}".format(
                     err, i+1, url))
         else:
             raise error
@@ -45,7 +48,7 @@ class req():
                 break
             except Exception as err:
                 error = err
-                print("Http Read Error: {0}, retry {1}".format(
+                logging.debug("Http Read Error: {0}, retry {1}".format(
                     err, i+1))
         else:
             raise error
@@ -59,13 +62,13 @@ class req():
         try:
             pageRequest = self.urlOpen(url=url, retry=retry, proxy=proxy)
         except Exception as err:
-            print("Http open Error: {0}, give up".format(err))
+            logging.debug("Http open Error: {0}, give up".format(err))
             raise
 
         try:
             content = self.getContent(pageRequest)
         except Exception as err:
-            print("Http read Error: {0}, give up".format(err))
+            logging.debug("Http read Error: {0}, give up".format(err))
             raise
 
         return content
