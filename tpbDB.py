@@ -60,7 +60,7 @@ class TPBDatabase():
         if ts:
             sql = 'insert or replace into tpbmirror (url, ts) VALUES (?,?)'
 
-        value = (mirror, datetime.now().timestamp(),)
+        value = (mirror, datetime.utcnow().timestamp(),)
         logging.debug(value)
 
         conn = sqlite3.connect(self.mirrorDB)
@@ -79,7 +79,7 @@ class TPBDatabase():
 
         values = []
         for mirror in mirrorList:
-            values.append((mirror, datetime.now().timestamp(),))
+            values.append((mirror, datetime.utcnow().timestamp(),))
 
         conn = sqlite3.connect(self.mirrorDB)
         c = conn.cursor()

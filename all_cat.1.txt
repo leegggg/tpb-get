@@ -1,3 +1,4 @@
+/recent/
 /user/merzedes
 /browse/100
 /browse/101

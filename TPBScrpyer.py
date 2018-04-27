@@ -74,16 +74,19 @@ class ScrpyerTPB():
     def parseTs(self, uploadStr):
         from datetime import datetime
         import re
+        import math
         from datetime import timedelta
 
-        ts = datetime.utcnow()
+        ts = datetime.now()
+        ts0 = ts
 
         # Uploaded 59 mins ago,
         regexpMatch = re.compile(
             r'(?P<mins>[0-9]{1,2}).+mins.+ago').search(uploadStr)
         if regexpMatch:
+            offset = datetime.now().timestamp() - datetime.utcnow().timestamp()
             mins = int(regexpMatch.group('mins'))
-            ts = ts - timedelta(0, 60*mins, 0)
+            ts = ts - timedelta(seconds=(60*mins+offset))
 
         # Uploaded Today 08:51,
         regexpMatch = re.compile(
@@ -122,6 +125,9 @@ class ScrpyerTPB():
             ts = ts.replace(year=year, month=month, day=day)
 
         # logging.debug("{},{}".format(uploadStr, ts))
+        if math.fabs(ts.timestamp() - ts0.timestamp()) < 5:
+            logging.warning("Interval between ts too low may be incorrent {}. Source {}".format(
+                ts.timestamp(), uploadStr))
 
         return ts.timestamp()
 
@@ -149,11 +155,12 @@ class ScrpyerTPB():
             if hrefRegexpMatch:
                 res['size'] = hrefRegexpMatch.group('size')
                 res['ts'] = self.parseTs(hrefRegexpMatch.group('upload'))
-
         return res
 
     def scrpyTorrentList(self, url):
         import bs4
+        logging.debug("scrpyTorrentList from {}".format(url))
+
         try:
             content = self.req.getUrl(url)
         except Exception as err:

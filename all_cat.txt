@@ -1,3 +1,7 @@
+/browse/500
+/browse/501
+/browse/502
+/browse/503
 /browse/504
 /browse/505
 /browse/506

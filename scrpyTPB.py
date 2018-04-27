@@ -20,6 +20,7 @@ class scrpyTPB():
         while True:
             mirror = self.db.getMirrors(limit=1, offset=site_num)
             if not mirror:
+                logging.debug("No more mirrors")
                 break
             site_num = site_num + 1
             host = mirror[0].get('url')
@@ -28,9 +29,12 @@ class scrpyTPB():
             # print(url)
             try:
                 torrentList = self.scrpyer.scrpyTorrentList(url)
-            except Exception:
+            except Exception as err:
+                logging.debug(err)
                 continue
+
             if not torrentList:
+                logging.debug("Empty torrent list form {}".format(url))
                 continue
 
             self.db.postMirror(host, ts=True)
@@ -66,6 +70,9 @@ class scrpyTPB():
             logging.info(res)
             ok = ok + res.get('ok')
             if res.get('ok') < minResource:
+                break
+            # Page existe dans auchune mirror
+            if res.get('site') < 1:
                 break
 
         return {'basepath': basePath, 'ok': ok, 'page': index + 1}
