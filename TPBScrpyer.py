@@ -24,8 +24,7 @@ class ScrpyerTPB():
 
         try:
             content = self.req.getUrl(url)
-        except Exception as err:
-            print(err)
+        except:
             raise
 
         dom = bs4.BeautifulSoup(content, "html.parser")
@@ -82,7 +81,7 @@ class ScrpyerTPB():
 
         # Uploaded 59 mins ago,
         regexpMatch = re.compile(
-            r'(?P<mins>[0-9]{1,2}).+mins.+ago').search(uploadStr)
+            r'(?P<mins>[0-9]{1,2}).+mins{0,1}.+ago').search(uploadStr)
         if regexpMatch:
             offset = datetime.now().timestamp() - datetime.utcnow().timestamp()
             mins = int(regexpMatch.group('mins'))
@@ -151,10 +150,12 @@ class ScrpyerTPB():
         if descDom:
             desc = descDom[0].text
             hrefRegexpMatch = re.compile(
-                r'Uploaded(?P<upload>.*), Size (?P<size>[0-9\.]+.+iB)').search(desc)
+                r'Uploaded(?P<upload>.*), Size (?P<size>[0-9\.]+.+?iB)').search(desc)
             if hrefRegexpMatch:
                 res['size'] = hrefRegexpMatch.group('size')
                 res['ts'] = self.parseTs(hrefRegexpMatch.group('upload'))
+        if not res['size']:
+            logging.warning("Torrent size not fount: {}".format(tr))
         return res
 
     def scrpyTorrentList(self, url):
@@ -163,8 +164,7 @@ class ScrpyerTPB():
 
         try:
             content = self.req.getUrl(url)
-        except Exception as err:
-            print(err)
+        except:
             raise
 
         # 'magnet:?xt=urn:btih:17e3c9fee45ad6e0a2a4cd4bd4e3ff4cbc380e27&dn=DivineBitches--DiB-43103+Delirious+Hunter+and+DJ+Hi+HD&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.publicbt.com%3A80&tr=udp%3A%2F%2Ftracker.ccc.de%3A80'

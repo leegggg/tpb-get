@@ -56,6 +56,8 @@ class scrpyTPB():
                        pageLimit=10, minResource=20):
         ok = 0
         index = 0
+        if basePath[len(basePath)-1] != '/':
+            basePath = basePath + '/'
 
         for index in range(pageLimit):
             path = "{:s}{:d}".format(basePath, index+offset)
@@ -103,6 +105,10 @@ class scrpyTPB():
                             action='store', type=int, default=2)
         parser.add_argument('--path', dest='path',
                             action='store', default='/recent/')
+        parser.add_argument('--process', dest='process',
+                            action='store', type=int, default=8)
+        parser.add_argument('--jobs', dest='jobpath',
+                            action='store', default=None)
         self.args = parser.parse_args()
 
         logging.basicConfig(format='[%(asctime)s] %(levelname)s [%(funcName)s: %(filename)s, %(lineno)d] %(message)s',
@@ -125,8 +131,9 @@ class scrpyTPB():
     def main(self):
         """[summary]
         """
+        from multiprocessing import Pool
 
-        if self.args.addmirror:
+        if self.args.addmirror or not self.db.getMirrors():
             mirror = self.args.addmirror
             logging.info("Mirror add updated from {}".format(
                 mirror))
@@ -145,19 +152,41 @@ class scrpyTPB():
         #     'file:///home/ylin/tpb-get/crus.html')
         # print(torrents)
         logging.info(
-            "Get torrents of {path} from page {offset} to page {end} tpb mirrors".format(
+            "Get torrents from page {offset} to page {end} from tpb mirrors with {process} processes.".format(
                 path=self.args.path, offset=self.args.offset,
-                end=self.args.offset+self.args.pages
+                end=self.args.offset+self.args.pages,
+                process=self.args.process
             ))
 
-        path = self.args.path
-        if path and path[len(path)-1] != '/':
-            path = path + '/'
+        jobs = []
+        if self.args.jobpath:
+            with open(self.args.jobpath) as f:
+                jobs = f.readlines()
 
-        res = self.scrpyTPBRecent(
-            offset=self.args.offset, pageLimit=self.args.pages,
-            minResource=self.args.minResource, basePath=path)
-        logging.info(res)
+            logging.info("Find {nbjob} jobs from {jobpath}".format(
+                nbjob=len(jobs), jobpath=self.args.jobpath
+            ))
+        elif self.args.path:
+            logging.info("Find 1 jobs from cli path: {path}".format(
+                path=self.args.path
+            ))
+            jobs.append(self.args.path)
+
+        # you may also want to remove whitespace characters like `\n` at the end of each line
+        jobs = [x.strip() for x in jobs]
+        logging.info("Paths to be scrpy : {}".format(jobs))
+        pool = Pool(self.args.process)
+        for job in jobs:
+            pool.apply_async(func=self.scrpyTPBRecent,
+                             kwds={
+                                 'offset': self.args.offset,
+                                 'pageLimit': self.args.pages,
+                                 'minResource': self.args.minResource,
+                                 'basePath': job
+                             }, callback=logging.info)
+
+        pool.close()
+        pool.join()
         # mirrorList = scrpyer.scrpyTPBMirrorList()
         # db.postMirrors(mirrorList, ts=False)
         # mirrors = db.getMirrors(limit=1, offset=100)

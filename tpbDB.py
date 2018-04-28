@@ -5,7 +5,7 @@ class TPBDatabase():
     mirrorDB = None
     torrentDB = None
 
-    torrentTableDefSQL = """
+    torrentTableDefSQLs = ["""
         create table if not exists tpbtorrent (
             id text PRIMARY KEY,
             btih text,
@@ -16,8 +16,15 @@ class TPBDatabase():
             title text,
             siteid text,
             size text
-        )
-    """
+        );
+    """, """
+        drop view if exists  all_torrents;
+    """, """
+        CREATE VIEW all_torrents as 
+            select user, catalog,size , title,ts, siteid,magnet 
+                from tpbtorrent 
+                order by ts DESC;
+    """]
 
     mirrorTableDefSQL = """
         create table if not exists tpbmirror (
@@ -48,7 +55,8 @@ class TPBDatabase():
 
         conn = sqlite3.connect(self.torrentDB)
         c = conn.cursor()
-        c.execute(self.torrentTableDefSQL)
+        for sql in self.torrentTableDefSQLs:
+            c.execute(sql)
         conn.commit()
         conn.close()
 
