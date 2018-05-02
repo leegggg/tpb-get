@@ -133,7 +133,7 @@ class scrpyTPB():
         """
         from multiprocessing import Pool
 
-        if self.args.addmirror or not self.db.getMirrors():
+        if self.args.addmirror:
             mirror = self.args.addmirror
             logging.info("Mirror add updated from {}".format(
                 mirror))
@@ -141,12 +141,13 @@ class scrpyTPB():
             logging.debug(self.db.getMirrors(limit=1))
             return
 
-        if self.args.updatemirror:
+        if self.args.updatemirror or not self.db.getMirrors():
             logging.info("Mirror List update from {}".format(
                 self.scrpyer.proxyListUrl))
             self.updateTPBMirror()
             logging.debug(self.db.getMirrors(limit=10))
-            return
+            if self.args.updatemirror:
+                return
 
         # torrents = self.scrpyer.scrpyTorrentList(
         #     'file:///home/ylin/tpb-get/crus.html')
