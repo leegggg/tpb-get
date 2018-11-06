@@ -11,4 +11,4 @@ cd ${basePath}
 
 source ./env/bin/activate
 
-bash systemd-cat -t tpb python -u ./scrpyTPB.py --pages=30
+python -u ./scrpyTPB.py --pages=30
