@@ -2,7 +2,7 @@
 
 basePath="."
 if [[ ! -z $1 ]]; then
-  basePath=$1
+  basePath=$(dirname $0)
 fi
 
 echo basePath
