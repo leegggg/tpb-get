@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
-basePath="."
+basePath=$(dirname $0)
 if [[ ! -z $1 ]]; then
-  basePath=$(dirname $0)
+  basePath=$1
 fi
 
 cd ${basePath}
-echo $0
-echo "Pwd"
-echo $(dirname $0)
-pwd
+echo "Pwd: $(pwd)"
 
 source ./env/bin/activate
 
