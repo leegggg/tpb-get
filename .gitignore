@@ -3,6 +3,7 @@
 tpb.db
 *.db
 *.log
+.idea
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
