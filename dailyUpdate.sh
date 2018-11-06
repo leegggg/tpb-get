@@ -5,9 +5,9 @@ if [[ ! -z $1 ]]; then
   basePath=$(dirname $0)
 fi
 
-echo basePath
-
 cd ${basePath}
+echo "Pwd"
+pwd
 
 source ./env/bin/activate
 
