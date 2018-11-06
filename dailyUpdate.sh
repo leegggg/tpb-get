@@ -8,6 +8,7 @@ fi
 cd ${basePath}
 echo $0
 echo "Pwd"
+echo $(dirname $0)
 pwd
 
 source ./env/bin/activate
