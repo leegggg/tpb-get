@@ -6,6 +6,7 @@ if [[ ! -z $1 ]]; then
 fi
 
 cd ${basePath}
+echo $0
 echo "Pwd"
 pwd
 
