@@ -11,4 +11,5 @@ cd ${basePath}
 
 source ./env/bin/activate
 
+cd app
 python -u ./scrpyTPB.py --pages=30
