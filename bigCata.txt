@@ -1,0 +1,15 @@
+/recent/
+/user/merzedes
+/browse/100
+/browse/200
+/browse/300
+/browse/400
+/browse/500
+/browse/501
+/browse/502
+/browse/503
+/browse/504
+/browse/505
+/browse/506
+/browse/599
+/browse/600

@@ -10,4 +10,4 @@ echo "Pwd: $(pwd)"
 
 source ./env/bin/activate
 
-python -u ./scrpyTPB.py --pages=30
+python -u ./scrpyTPB.py --pages=30 --jobs=./bigCata.txt
