@@ -89,7 +89,7 @@ class ScrpyerTPB():
 
         # Uploaded Today 08:51,
         regexpMatch = re.compile(
-            r'Today.+(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
+            r'Today.*(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
         if regexpMatch:
             hour = int(regexpMatch.group('hour'))
             mint = int(regexpMatch.group('mint'))
@@ -97,7 +97,7 @@ class ScrpyerTPB():
 
         # Uploaded Y-day 00:05,
         regexpMatch = re.compile(
-            r'Y-day.+(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
+            r'Y-day.*(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
         if regexpMatch:
             hour = int(regexpMatch.group('hour'))
             mint = int(regexpMatch.group('mint'))
@@ -106,7 +106,7 @@ class ScrpyerTPB():
 
         # Uploaded 04-25 13:08,
         regexpMatch = re.compile(
-            r'(?P<month>[0-9]{2})-(?P<day>[0-9]{2}).+(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
+            r'(?P<month>[0-9]{2})-(?P<day>[0-9]{2}).*(?P<hour>[0-9]{2}):(?P<mint>[0-9]{2})').search(uploadStr)
         if regexpMatch:
             hour = int(regexpMatch.group('hour'))
             mint = int(regexpMatch.group('mint'))
@@ -116,7 +116,7 @@ class ScrpyerTPB():
 
         # Uploaded 11-24 2016,
         regexpMatch = re.compile(
-            r'(?P<month>[0-9]{2})-(?P<day>[0-9]{2}).+(?P<year>[0-9]{4})').search(uploadStr)
+            r'(?P<month>[0-9]{2})-(?P<day>[0-9]{2}).*(?P<year>[0-9]{4})').search(uploadStr)
         if regexpMatch:
             year = int(regexpMatch.group('year'))
             month = int(regexpMatch.group('month'))
