@@ -1,29 +1,36 @@
 # pylint: disable-msg=C0103
 import logging
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+import tpbDAO
+import TPBScrpyer
+from datetime import datetime
 
+from tpbDAO import Base
 
 class scrpyTPB():
     scrpyer = None
     db = None
     pathPrefix = ""
 
-    def updateTPBMirror(self):
+    def updateTPBMirror(self,engine):
         mirrorList = self.scrpyer.scrpyTPBMirrorList()
-        self.db.postMirrors(mirrorList, ts=False)
+        TPBScrpyer.postMirrors(engine,mirrorList, ts=False)
 
-    def scrpyTPBInMirrors(self, path='/recent/0', threshold=0.3, minSite=3):
+    def scrpyTPBInMirrors(self, engine,path='/recent/0', threshold=0.3, minSite=3):
         total = 0
         ok = 0
         ratio = 1
         site = 0
         site_num = 0
         while True:
-            mirror = self.db.getMirrors(limit=1, offset=site_num)
+            mirror = TPBScrpyer.getMirrors(engine,limit=1, offset=site_num)
             if not mirror:
                 logging.debug("No more mirrors")
                 break
             site_num = site_num + 1
-            host = mirror[0].get('url')
+            host = mirror[0]
             url = host + path
             torrentList = []
             # print(url)
@@ -37,9 +44,9 @@ class scrpyTPB():
                 logging.debug("Empty torrent list form {}".format(url))
                 continue
 
-            self.db.postMirror(host, ts=True)
+            TPBScrpyer.postMirror(engine, host, ts=True)
             site = site + 1
-            res = self.db.postTorrents(torrentList)
+            res = TPBScrpyer.postTorrents(engine, torrentList)
             logging.info("{} {}".format(url, res))
             total = total + res['total']
             ok = ok + res['ok']
@@ -52,8 +59,9 @@ class scrpyTPB():
 
         return {'path': path, 'total': total, 'ok': ok, 'site': site, 'ratio': ratio}
 
-    def scrpyTPBRecent(self, basePath='/recent/', offset=0,
+    def scrpyTPBRecent(self, dbUrl, basePath='/recent/', offset=0,
                        pageLimit=10, minResource=20):
+        engine = create_engine(dbUrl)
         ok = 0
         index = 0
         if basePath[len(basePath)-1] != '/':
@@ -68,7 +76,7 @@ class scrpyTPB():
             if '/search/' in basePath:
                 path = "{:s}{:d}/7//".format(basePath, index+offset)
 
-            res = self.scrpyTPBInMirrors(path=path)
+            res = self.scrpyTPBInMirrors(engine=engine,path=path)
             logging.info(res)
             ok = ok + res.get('ok')
             if res.get('ok') < minResource:
@@ -124,28 +132,33 @@ class scrpyTPB():
         torrentdb = self.args.torrentdb
         if not torrentdb:
             torrentdb = self.args.db
+            self.torrentdb = 'sqlite:///./data/tpb.db'
         logging.debug("Torrent DB: {}".format(torrentdb))
 
-        self.db = tpbDB.TPBDatabase(mirrorDB=mirrordb, torrentDB=torrentdb)
+        # self.db = tpbDB.TPBDatabase(mirrorDB=mirrordb, torrentDB=torrentdb)
 
     def main(self):
         """[summary]
         """
+
+        engine = create_engine(self.torrentdb)
+        Base.metadata.create_all(engine)
+
         from multiprocessing import Pool
 
         if self.args.addmirror:
-            mirror = self.args.addmirror
+            mirrorUrl = self.args.addmirror
             logging.info("Mirror add updated from {}".format(
-                mirror))
-            self.db.postMirror(mirror=mirror, ts=True)
-            logging.debug(self.db.getMirrors(limit=1))
+                mirrorUrl))
+            TPBScrpyer.postMirror(engine,mirrorUrl,ts=True)
+            logging.debug(TPBScrpyer.getMirrors(engine,limit=1))
             return
 
-        if self.args.updatemirror or not self.db.getMirrors():
+        if self.args.updatemirror or not TPBScrpyer.getMirrors(engine):
             logging.info("Mirror List update from {}".format(
                 self.scrpyer.proxyListUrl))
-            self.updateTPBMirror()
-            logging.debug(self.db.getMirrors(limit=10))
+            self.updateTPBMirror(engine)
+            logging.debug(TPBScrpyer.getMirrors(engine,limit=10))
             if self.args.updatemirror:
                 return
 
@@ -183,11 +196,13 @@ class scrpyTPB():
                                  'offset': self.args.offset,
                                  'pageLimit': self.args.pages,
                                  'minResource': self.args.minResource,
-                                 'basePath': job
+                                 'basePath': job,
+                                 'dbUrl': self.torrentdb
                              }, callback=logging.info)
 
         pool.close()
         pool.join()
+
         # mirrorList = scrpyer.scrpyTPBMirrorList()
         # db.postMirrors(mirrorList, ts=False)
         # mirrors = db.getMirrors(limit=1, offset=100)

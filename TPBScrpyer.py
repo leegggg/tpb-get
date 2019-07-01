@@ -1,4 +1,101 @@
 import logging
+import tpbDAO
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from datetime import datetime
+Base = declarative_base()
+from tpbDAO import TpbMirror
+
+from tpbDAO import Base
+
+def getMirrors(engine, limit=3, offset=0):
+    Session = sessionmaker(bind=engine)
+    mirrors = []
+    try:
+        session = Session()
+        from sqlalchemy.sql import exists, or_
+        results = session.query(TpbMirror.url) \
+            .order_by(TpbMirror.ts.desc()) \
+            .offset(offset) \
+            .limit(limit).all()
+        session.expunge_all()
+        session.commit()
+        if results:
+            for res in results:
+                mirrors.append(res.url)
+    except:
+        pass
+
+    return mirrors
+
+
+def postMirror(engine, mirrorUrl, ts=False):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    mirror = tpbDAO.TpbMirror()
+    mirror.url = mirrorUrl
+    mirror.ts = datetime.now()
+    try:
+        if ts:
+            session.merge(mirror)
+        else:
+            session.add(mirror)
+        session.commit()
+    except:
+        logging.warning("Skip mirror {} - {}".format(mirror.url,mirror.ts))
+
+
+
+def postMirrors(engine, mirrorList, ts=False):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    for mirrorUrl in mirrorList:
+        mirror = tpbDAO.TpbMirror()
+        mirror.url = mirrorUrl
+        mirror.ts = datetime.now()
+        try:
+            if ts:
+                session.merge(mirror)
+            else:
+                session.add(mirror)
+            session.commit()
+        except:
+            logging.warning("Skip mirror {} - {}".format(mirror.url, mirror.ts))
+    pass
+
+
+def postTorrents(engine, torrents):
+    Session = sessionmaker(bind=engine)
+    session = Session()
+
+    numWriten = 0
+    for torrentDict in torrents:
+        torrent = tpbDAO.TpbTorrent()
+        torrent.id = torrentDict.get('id')
+        torrent.btih = torrentDict.get('btih')
+        torrent.user = torrentDict.get('user')
+        torrent.catalog = torrentDict.get('catalog')
+        torrent.ts = torrentDict.get('ts')
+        torrent.magnet = torrentDict.get('magnet')
+        torrent.title = torrentDict.get('title')
+        torrent.siteid = torrentDict.get('siteid')
+        torrent.size = torrentDict.get('size')
+
+        try:
+            session.add(torrent)
+            session.commit()
+            numWriten += 1
+        except:
+            logging.debug("Skip torrent {} ".format(torrent.title))
+
+    numTotal = len(torrents)
+
+    return {
+        'total': numTotal,
+        'ok': numWriten
+    }
 
 
 class ScrpyerTPB():
@@ -128,7 +225,7 @@ class ScrpyerTPB():
             logging.warning("Interval between ts too low may be incorrent {}. Source {}".format(
                 ts.timestamp(), uploadStr))
 
-        return ts.timestamp()
+        return ts
 
     def parseTorrent(self, tr):
         import uuid
@@ -176,3 +273,8 @@ class ScrpyerTPB():
                 resList.append(res)
 
         return resList
+
+
+if __name__ == '__main__':
+    scrpyer = ScrpyerTPB()
+    scrpyer.scrpyTorrentList('file:./tpb.html')
